@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class DrawingController : MonoBehaviour
 {
-
+    [SerializeField] private Transform drawingBoard = null;
     [SerializeField] private Camera mainCamera = null;
     [SerializeField] private GameObject linePrefab = null;
     [SerializeField] private LayerMask drawingBoardMask;
@@ -29,24 +29,27 @@ public class DrawingController : MonoBehaviour
     /// </summary>
     private void DrawingLine()
     {
-        if (brushPosition != Vector3.zero)
+        if (Input.GetButtonDown("Fire1") && brushPosition != Vector3.zero)
         {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                CreateLine(brushPosition);
-            }
-            else if (Input.GetButton("Fire1"))
-            {
-                AddPointToLine(currentLineRenderer, brushPosition);
-            }
-            else
-            {
-                currentLineRenderer = null;
-            }
+            CreateLine(brushPosition);
+        }
+        else if (Input.GetButton("Fire1") && brushPosition != Vector3.zero)
+        {
+            AddPointToLine(currentLineRenderer, brushPosition);
+        }
+        else if (Input.GetButtonUp("Fire1"))
+        {
+            //trocar pernas atuais pelas novas recem desenhadas
+            playerLegs.SwitchLegs(currentLineRenderer);
+            EraseLine(currentLineRenderer);
         }
     }
 
 
+    public PlayerLegsManager playerLegs;
+
+
+    
 
     private Vector3 GetMousePositionWithRaycast(LayerMask drawingMask)
     {
@@ -71,12 +74,21 @@ public class DrawingController : MonoBehaviour
     /// </summary>
     private void CreateLine(Vector3 lineStartPosition)
     {
-        GameObject brushInstance = Instantiate(linePrefab);
+        GameObject brushInstance = Instantiate(linePrefab, drawingBoard);
         currentLineRenderer = brushInstance.GetComponent<LineRenderer>();
 
         //The line needs at least two points to exist
         currentLineRenderer.SetPosition(0, lineStartPosition);
         currentLineRenderer.SetPosition(1, lineStartPosition);
+    }
+
+
+    /// <summary>
+    /// Destroy a GameObject that has a LineRenderer component.
+    /// </summary>
+    private void EraseLine(LineRenderer lineObj)
+    {
+        Destroy(lineObj.gameObject);
     }
 
 
