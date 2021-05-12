@@ -6,9 +6,9 @@ using System.Collections.Generic;
 /// <summary>
 /// Used for drawing lines on a board using the mouse position.
 /// </summary>
-public class DrawingController : MonoBehaviour
+public class DrawingLineController : MonoBehaviour
 {
-    [SerializeField] private BodyLegsManager playerLegs;
+    [SerializeField] private BodyLegsGenerator playerLegs;
     [SerializeField] private Transform drawingBoard = null;
     [SerializeField] private GameObject linePrefab = null;
     private LineRenderer currentLineRenderer;
@@ -16,7 +16,7 @@ public class DrawingController : MonoBehaviour
     private Vector3 lastPointPosition;
 
     private bool isLineAtLimitPoints;
-    private int lineLimitPoints = 150;
+    private int lineLimitPoints = 125;
 
     // raycast variables
     [SerializeField] EventSystem m_EventSystem = null;
@@ -37,6 +37,10 @@ public class DrawingController : MonoBehaviour
         if (Input.GetButtonDown("Fire1") && brushPosition != Vector3.zero)
         {
             Time.timeScale = 0;
+            if(currentLineRenderer != null)
+            {
+                EraseLine(currentLineRenderer);
+            }
             CreateLine(brushPosition);
         }
         else if (Input.GetButton("Fire1") && brushPosition != Vector3.zero && !isLineAtLimitPoints)

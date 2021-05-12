@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class MovementManager : MonoBehaviour
+public class BodyMovementManager : MonoBehaviour
 {
     [SerializeField] private Transform legsPivot = null;
-    [SerializeField] private float rotationSpeed = 750f;
+    [SerializeField] private float rotationSpeed = 300f;
     [SerializeField] private float movementSpeed = 10f;
     [SerializeField] private Rigidbody rbody = null;
     private bool canMove;
 
 
-    private void Update()
+    private void FixedUpdate()
     {
         if(canMove)
         {
