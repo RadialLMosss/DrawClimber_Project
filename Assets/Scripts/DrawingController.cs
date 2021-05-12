@@ -1,24 +1,26 @@
 using UnityEngine;
-
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using System.Collections.Generic;
 
 /// <summary>
 /// Used for drawing lines on a board using the mouse position.
 /// </summary>
 public class DrawingController : MonoBehaviour
 {
+    [SerializeField] private BodyLegsManager playerLegs;
     [SerializeField] private Transform drawingBoard = null;
-    [SerializeField] private Camera mainCamera = null;
     [SerializeField] private GameObject linePrefab = null;
-    [SerializeField] private LayerMask drawingBoardMask;
     private LineRenderer currentLineRenderer;
     private Vector3 brushPosition;
     private Vector3 lastPointPosition;
 
-
+    // raycast variables
+    [SerializeField] EventSystem m_EventSystem = null;
 
     private void Update()
     {
-        brushPosition = GetMousePositionWithRaycast(drawingBoardMask);
+        brushPosition = GetMousePositionWithGraphicRaycast();
         DrawingLine();
     }
     
@@ -40,32 +42,31 @@ public class DrawingController : MonoBehaviour
         else if (Input.GetButtonUp("Fire1"))
         {
             //trocar pernas atuais pelas novas recem desenhadas
-            playerLegs.SwitchLegs(currentLineRenderer);
-            EraseLine(currentLineRenderer);
+            if(currentLineRenderer != null)
+            {
+                playerLegs.SwitchBodyLegs(currentLineRenderer);
+                EraseLine(currentLineRenderer);
+            }
         }
     }
 
 
-    public PlayerLegsManager playerLegs;
-
-
-    
-
-    private Vector3 GetMousePositionWithRaycast(LayerMask drawingMask)
+    private Vector3 GetMousePositionWithGraphicRaycast()
     {
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
+        var pointerEventData = new PointerEventData(m_EventSystem);
+        pointerEventData.position = Input.mousePosition;
+        var raycastResults = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerEventData, raycastResults);
 
-        if (Physics.Raycast(ray, out hit, 100f, drawingMask))
+        if (raycastResults.Count > 0)
         {
-            return hit.point;
+                return raycastResults[0].worldPosition;
         }
         else
         {
             return Vector3.zero;
         }
     }
-
 
 
 
