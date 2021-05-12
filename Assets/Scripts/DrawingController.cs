@@ -15,6 +15,9 @@ public class DrawingController : MonoBehaviour
     private Vector3 brushPosition;
     private Vector3 lastPointPosition;
 
+    private bool isLineAtLimitPoints;
+    private int lineLimitPoints = 150;
+
     // raycast variables
     [SerializeField] EventSystem m_EventSystem = null;
 
@@ -33,19 +36,21 @@ public class DrawingController : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1") && brushPosition != Vector3.zero)
         {
+            Time.timeScale = 0;
             CreateLine(brushPosition);
         }
-        else if (Input.GetButton("Fire1") && brushPosition != Vector3.zero)
+        else if (Input.GetButton("Fire1") && brushPosition != Vector3.zero && !isLineAtLimitPoints)
         {
             AddPointToLine(currentLineRenderer, brushPosition);
         }
-        else if (Input.GetButtonUp("Fire1"))
+        else if (Input.GetButtonUp("Fire1") || isLineAtLimitPoints)
         {
             //trocar pernas atuais pelas novas recem desenhadas
             if(currentLineRenderer != null)
             {
                 playerLegs.SwitchBodyLegs(currentLineRenderer);
                 EraseLine(currentLineRenderer);
+                Time.timeScale = 1;
             }
         }
     }
@@ -90,6 +95,7 @@ public class DrawingController : MonoBehaviour
     private void EraseLine(LineRenderer lineObj)
     {
         Destroy(lineObj.gameObject);
+        isLineAtLimitPoints = false;
     }
 
 
@@ -105,6 +111,10 @@ public class DrawingController : MonoBehaviour
             int positionIndex = lineRenderer.positionCount - 1;
             lineRenderer.SetPosition(positionIndex, newPointPosition);
             lastPointPosition = newPointPosition;
+            if(lineRenderer.positionCount >= lineLimitPoints)
+            {
+                isLineAtLimitPoints = true;
+            }
         }
     }
 }

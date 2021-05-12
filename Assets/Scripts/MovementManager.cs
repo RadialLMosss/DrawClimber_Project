@@ -6,19 +6,14 @@ public class MovementManager : MonoBehaviour
     [SerializeField] private float rotationSpeed = 750f;
     [SerializeField] private float movementSpeed = 10f;
     [SerializeField] private Rigidbody rbody = null;
-    private Vector3 rotationVector;
     private bool canMove;
 
-    private void Start()
-    {
-        rotationVector = new Vector3(0, 0, rotationSpeed * -1 * Time.deltaTime);
-    }
 
     private void Update()
     {
         if(canMove)
         {
-            legsPivot.Rotate(rotationVector);
+            legsPivot.Rotate(new Vector3(0, 0, rotationSpeed * -1 * Time.deltaTime));
             rbody.velocity = new Vector3(movementSpeed, rbody.velocity.y, 0);
         }
     }
