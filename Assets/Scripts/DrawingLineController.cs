@@ -24,7 +24,10 @@ public class DrawingLineController : MonoBehaviour
     private void Update()
     {
         brushPosition = GetMousePositionWithGraphicRaycast();
-        DrawingLine();
+        if(GameManager.hasGameStarted)
+        {
+            DrawingLine();
+        }
     }
     
 
