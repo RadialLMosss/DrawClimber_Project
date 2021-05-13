@@ -16,7 +16,7 @@ public class DrawingLineController : MonoBehaviour
     private Vector3 lastPointPosition;
 
     private bool isLineAtLimitPoints;
-    private int lineLimitPoints = 125;
+    public int lineLimitPoints = 125;
 
     // raycast variables
     [SerializeField] EventSystem m_EventSystem = null;

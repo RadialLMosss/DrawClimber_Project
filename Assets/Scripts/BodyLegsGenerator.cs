@@ -18,6 +18,32 @@ public class BodyLegsGenerator : MonoBehaviour
     List<Vector3> lineAdjustedPositions = new List<Vector3>();
     private float legWidth = 0.4f;
 
+    [SerializeField]DrawingLineController drawingLine;
+    Transform[] leftLegColliders;
+    Transform[] rightLegColliders;
+    void InstantiateLegColliders()
+    {
+        leftLegColliders = new Transform[drawingLine.lineLimitPoints];
+        rightLegColliders = new Transform[drawingLine.lineLimitPoints];
+        
+        legColliderPrefab.radius = legWidth / 2;
+
+        for (int i = 0; i < drawingLine.lineLimitPoints; i++)
+        {
+            GameObject leftLegCollider = Instantiate(legColliderPrefab.gameObject, leftLegContainer);
+            leftLegColliders[i] = leftLegCollider.transform;
+            leftLegCollider.SetActive(false);
+            
+            GameObject rightLegCollider = Instantiate(legColliderPrefab.gameObject, rightLegContainer);
+            rightLegColliders[i] = rightLegCollider.transform; 
+            rightLegCollider.SetActive(false);
+        }
+    }
+
+    private void Start()
+    {
+        InstantiateLegColliders();
+    }
 
     /// <summary>
     /// Create new legs based on the drawing to replace the old ones.
@@ -39,7 +65,7 @@ public class BodyLegsGenerator : MonoBehaviour
     {
         lineDrawing.sharedMaterial = newLegMaterial;
         lineDrawing.startWidth = newLegWidth;
-        legColliderPrefab.radius = lineDrawing.startWidth / 2;
+        
 
         return lineDrawing;
     }
@@ -83,8 +109,8 @@ public class BodyLegsGenerator : MonoBehaviour
         currentLeftLeg.PrepareLeg(legDrawing, leftLegContainer);
         currentRightLeg.PrepareLeg(legDrawing, rightLegContainer);
 
-        StartCoroutine(currentLeftLeg.GenerateLeg(lineAdjustedPositions, legColliderPrefab));
-        StartCoroutine(currentRightLeg.GenerateLeg(lineAdjustedPositions, legColliderPrefab));
+        StartCoroutine(currentLeftLeg.GenerateLeg(lineAdjustedPositions, legColliderPrefab, leftLegColliders));
+        StartCoroutine(currentRightLeg.GenerateLeg(lineAdjustedPositions, legColliderPrefab, rightLegColliders));
     }
 
     

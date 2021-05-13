@@ -546,21 +546,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 269080774, guid: c4bdc396369fbf846a0a78efacbd911f, type: 3}
-      propertyPath: m_Name
-      value: CubeShoulder
-      objectReference: {fileID: 0}
-    - target: {fileID: 1575727498, guid: c4bdc396369fbf846a0a78efacbd911f, type: 3}
-      propertyPath: m_Name
-      value: CubeShoulder
-      objectReference: {fileID: 0}
+    - target: {fileID: 1070199442, guid: c4bdc396369fbf846a0a78efacbd911f, type: 3}
+      propertyPath: drawingLine
+      value: 
+      objectReference: {fileID: 8665257644990608032}
     - target: {fileID: 2428231588551540693, guid: c4bdc396369fbf846a0a78efacbd911f, type: 3}
       propertyPath: m_Name
       value: PlayerCube
-      objectReference: {fileID: 0}
-    - target: {fileID: 2428231588551540693, guid: c4bdc396369fbf846a0a78efacbd911f, type: 3}
-      propertyPath: m_TagString
-      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8069200374743305681, guid: c4bdc396369fbf846a0a78efacbd911f, type: 3}
       propertyPath: m_RootOrder
@@ -1275,3 +1267,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bbfbd6d7077fcd47bb6967acea72335, type: 3}
+--- !u!114 &8665257644990608032 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5827331221889023580, guid: 1bbfbd6d7077fcd47bb6967acea72335, type: 3}
+  m_PrefabInstance: {fileID: 8665257644990608031}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16ce402b674bfde44a1af34544d05083, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
