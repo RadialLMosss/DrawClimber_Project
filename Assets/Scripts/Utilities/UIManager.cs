@@ -1,15 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public Image drawingBoard;
-    public GameObject textPanel;
-    public Text centralText;
-    public Button startGameButton;
+    [SerializeField] private Image drawingBoard = null;
+    [SerializeField] private GameObject textPanel = null;
+    [SerializeField] private Text centralText = null;
+    [SerializeField] private Button startGameButton = null;
 
     public void OnStartGameButtonClick()
     {
@@ -17,30 +16,39 @@ public class UIManager : MonoBehaviour
         StartCoroutine(ShowStartGameInterface());
     }
 
-    IEnumerator ShowStartGameInterface()
+
+    private IEnumerator ShowStartGameInterface()
     {
+        var interval = new WaitForSeconds(1);
+
         centralText.text = "3";
-        yield return new WaitForSeconds(1);
+        yield return interval;
         centralText.text = "2";
-        yield return new WaitForSeconds(1);
+        yield return interval;
         centralText.text = "1";
-        yield return new WaitForSeconds(1);
+        yield return interval;
         centralText.text = "Draw!";
-        yield return new WaitForSeconds(0.25f);
+        yield return interval;
+
+        textPanel.SetActive(false);
         drawingBoard.gameObject.SetActive(true);
         GameManager.hasGameStarted = true;
-        yield return new WaitForSeconds(0.25f);
-        textPanel.SetActive(false);
     }
+
 
     public IEnumerator ShowEndGameInterface()
     {
-        Time.timeScale = 0.25f;
+        Time.timeScale = 0.25f; //slow motion effect
+
         drawingBoard.gameObject.SetActive(false);
         centralText.text = "Congratulations!";
+        
         textPanel.SetActive(true);
+        
         yield return new WaitForSeconds(1f);
+        
         Time.timeScale = 1f;
-        SceneManager.LoadScene(0);
+
+        SceneManager.LoadScene(0); //restart scene
     }
 }

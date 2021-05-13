@@ -44,4 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drawingBoard: {fileID: 0}
-  congratulationsText: {fileID: 0}
+  textPanel: {fileID: 0}
+  centralText: {fileID: 0}
+  startGameButton: {fileID: 0}
