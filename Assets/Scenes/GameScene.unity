@@ -5,11 +5,11 @@ OcclusionCullingSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_OcclusionBakeSettings:
-    smallestOccluder: 5
+    smallestOccluder: 10
     smallestHole: 0.25
     backfaceThreshold: 100
-  m_SceneGUID: 00000000000000000000000000000000
-  m_OcclusionCullingData: {fileID: 0}
+  m_SceneGUID: 9fc0d4010bbf28b4594072e72b8655ab
+  m_OcclusionCullingData: {fileID: 36300000, guid: e0d5fe01259d1f14f80ed856b583d0e7, type: 2}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -97,8 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 655df5f5652cb7141ade880210b79703, type: 2}
+  m_LightingDataAsset: {fileID: 112000000, guid: cfb65b6a2e9443340b1735429f933cd6, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 192cb238376120c419049379bdc8fba0, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
