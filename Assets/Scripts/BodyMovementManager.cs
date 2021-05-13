@@ -11,7 +11,7 @@ public class BodyMovementManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(canMove)
+        if (canMove)
         {
             legsPivot.Rotate(new Vector3(0, 0, rotationSpeed * -1 * Time.deltaTime));
             rbody.velocity = new Vector3(movementSpeed, rbody.velocity.y, 0);

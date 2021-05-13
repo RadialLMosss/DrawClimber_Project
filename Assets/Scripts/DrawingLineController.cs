@@ -88,6 +88,7 @@ public class DrawingLineController : MonoBehaviour
     private void CreateLine(Vector3 lineStartPosition)
     {
         GameObject brushInstance = Instantiate(linePrefab, drawingBoard);
+        
         currentLineRenderer = brushInstance.GetComponent<LineRenderer>();
 
         //The line needs at least two points to exist

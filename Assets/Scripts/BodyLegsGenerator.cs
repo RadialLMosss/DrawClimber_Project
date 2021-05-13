@@ -51,24 +51,13 @@ public class BodyLegsGenerator : MonoBehaviour
     public void SwitchBodyLegs(LineRenderer legDrawing)
     {
         AdjustAndStoreLineDrawingPositions(legDrawing);
-        LineRenderer modifiedLeg = PrepareLegVisual(legDrawing, legsMaterial, legWidth);
-        CreateConcreteBodyLegs(modifiedLeg);
-
+        CreateConcreteBodyLegs(legDrawing);
+        
         //Give permission to walk with the new legs
         movimentManager.ToggleMovimentCapacity(true);
-    }
-
-    /// <summary>
-    /// Used to set leg material and width.
-    /// </summary>
-    private LineRenderer PrepareLegVisual(LineRenderer lineDrawing, Material newLegMaterial, float newLegWidth)
-    {
-        lineDrawing.sharedMaterial = newLegMaterial;
-        lineDrawing.startWidth = newLegWidth;
         
-
-        return lineDrawing;
     }
+
 
     /// <summary>
     /// Used to generate and store new positions for the line so it can start from the body's center
@@ -109,8 +98,8 @@ public class BodyLegsGenerator : MonoBehaviour
         currentLeftLeg.PrepareLeg(legDrawing, leftLegContainer);
         currentRightLeg.PrepareLeg(legDrawing, rightLegContainer);
 
-        StartCoroutine(currentLeftLeg.GenerateLeg(lineAdjustedPositions, legColliderPrefab, leftLegColliders));
-        StartCoroutine(currentRightLeg.GenerateLeg(lineAdjustedPositions, legColliderPrefab, rightLegColliders));
+        StartCoroutine(currentLeftLeg.GenerateLeg(lineAdjustedPositions, legColliderPrefab, leftLegColliders, legsMaterial, legWidth));
+        StartCoroutine(currentRightLeg.GenerateLeg(lineAdjustedPositions, legColliderPrefab, rightLegColliders, legsMaterial, legWidth));
     }
 
     

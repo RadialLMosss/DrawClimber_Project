@@ -13,16 +13,18 @@ public class Leg : MonoBehaviour
         {
             Destroy(legObjInstance.gameObject);
         }
+        
         GameObject leg = Instantiate(legDrawing.gameObject, legParent);
         leg.transform.localPosition = Vector3.zero;
         leg.transform.localRotation = Quaternion.identity;
         legObjInstance = leg;
     }
 
-    public IEnumerator GenerateLeg(List<Vector3> linePositions, SphereCollider legPointCollider, Transform[] legColliderObjs)
+    public IEnumerator GenerateLeg(List<Vector3> linePositions, SphereCollider legPointCollider, Transform[] legColliderObjs, Material newLegMaterial, float newLegWidth)
     {
         LineRenderer legLineRenderer = legObjInstance.GetComponent<LineRenderer>();
-        
+        legLineRenderer.sharedMaterial = newLegMaterial;
+        legLineRenderer.startWidth = newLegWidth;
 
         //Reset line to 0 so we can show it being draw based on the lineOriginalPositions list
         legLineRenderer.positionCount = 0;
